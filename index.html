@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Ticket Booking</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        header {
+            background-color: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            background-color: #2c3e50;
+            text-align: center;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #1abc9c;
+            border-radius: 4px;
+        }
+
+        /* Efek kursor */
+        a:hover, button:hover {
+            cursor: url('https://cdn.custom-cursor.com/db/main/230x230/4988/click2-pointer-click-custom-cursor.png'), auto;
+        }
+
+        /* Section Style */
+        section {
+            padding: 60px 20px;
+            background-color: #9a1919;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        img {
+            max-width: 100%; 
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05); 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .slides {
+            position: relative;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        input[type='radio'] {
+            display: none;
+        }
+
+        #slide1:checked ~ .slides .mySlides:nth-child(1),
+        #slide2:checked ~ .slides .mySlides:nth-child(2),
+        #slide3:checked ~ .slides .mySlides:nth-child(3),
+        #slide4:checked ~ .slides .mySlides:nth-child(4) {
+            display: block;
+        }
+
+        .slide-image {
+            width: 60%;
+            height: auto; 
+            margin: 0 auto; 
+            display: block; 
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .navigation label {
+            cursor:pointer;
+            padding: 5px;
+            background-color: gray;
+            color: white;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .fade {
+            animation: fade 1.5s;
+        }
+
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+
+        #home {
+            background:white;
+            color: rgb(159, 35, 35);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align:center;
+        }
+
+        #events, #order, #schedule, #about {
+            background-color: #fff;
+            color: #333;
+        }
+
+        #events table, #schedule ul {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        #events table th, #events table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        #events table th {
+            background-color: #1abc9c;
+            color: white;
+        }
+
+        #schedule ul li {
+            padding: 10px 0;
+        }
+
+        #order form {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        form input[type="text"], form input[type="email"], form input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+
+        form input[type="submit"] {
+            background-color: #1abc9c;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #16a085;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <header>
+        <h1>Welcome to Event Ticket Booking</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#events">Event List</a></li>
+                <li><a href="#order">Order Ticket</a></li>
+                <li><a href="#schedule">Event Schedule</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+   <!-- Home Section -->
+    <section id="home">
+        <div class="slideshow-container">
+            <input type="radio" name="slides" id="slide1" checked>
+            <input type="radio" name="slides" id="slide2">
+            <input type="radio" name="slides" id="slide3">
+            <input type="radio" name="slides" id="slide4">
+
+
+            <div class="slides">
+                <div class="mySlides fade">
+                    <label for="slide1" class="slide-label"></label>
+                    <img src="welcome.jpg" alt="Selamat Datang" style="width:70%">
+                </div>
+                <div class="mySlides fade">
+                    <label for="slide2" class="slide-label"></label>
+                    <img src="film festival.png" alt="Festival Film" style="width:70%">
+                </div>
+                <div class="mySlides fade">
+                    <label for="slide3" class="slide-label"></label>
+                    <img src="music event.png" alt="Acara Musik" style="width:70%">
+                </div>
+                <div class="mySlides fade">
+                    <label for="slide4" class="slide-label"></label>
+                    <img src="teater.png" alt="Pertunjukan Teater" style="width:70%">
+                </div>
+            </div>
+
+            <!-- Kontrol navigasi -->
+            <div class="navigation">
+                <label for="slide1"></label>
+                <label for="slide2"></label>
+                <label for="slide3"></label>
+                <label for="slide4"></label>
+            </div>
+        </div>
+
+        <div class="content">
+            <p><b>Selamat datang di Event Ticket Booking!</b><br>
+            Kami dengan bangga mempersembahkan platform yang dirancang khusus untuk memudahkan Anda dalam mendapatkan tiket acara terbaik di kota Anda. Apakah Anda siap untuk merasakan pengalaman tak terlupakan?</p>
+
+            <p><b>Temukan Acara Impian Anda</b><br>
+            Di Event Ticket Booking, kami menawarkan berbagai pilihan acara mulai dari konser musik, pertunjukan teater, festival seni, hingga acara olahraga. Dengan hanya beberapa klik, Anda dapat menjelajahi daftar acara yang menarik dan menemukan yang paling sesuai dengan minat Anda.</p>
+
+            <p><b>Proses Pemesanan yang Mudah</b><br>
+            Kami memahami bahwa waktu Anda sangat berharga. Oleh karena itu, kami telah menyederhanakan proses pemesanan tiket. Cukup pilih acara, pilih tempat duduk Anda, dan lakukan pembayaran dengan aman. Dalam hitungan menit, tiket Anda akan siap untuk diunduh atau dikirimkan langsung ke email Anda!</p>
+
+            <p><b>Keamanan dan Kenyamanan</b><br>
+            Keamanan transaksi adalah prioritas utama kami. Dengan sistem enkripsi terbaru dan otentikasi dua faktor, Anda dapat merasa tenang saat melakukan pembelian tiket secara online. Kami berkomitmen untuk memberikan pengalaman yang aman dan nyaman bagi semua pengguna.</p>
+
+            <p><b>Siap Memulai?</b><br>
+            Ayo bergabung dengan Event Ticket Booking sekarang juga! Temukan pengalaman baru dan buat kenangan indah bersama orang-orang terkasih. Pesan tiket Anda hari ini dan nikmati setiap momen dari acara yang Anda pilih!</p>
+        </div>
+    </section>
+
+        <!-- Event List Section -->
+        <section id="events">
+            <h2>Upcoming Events</h2>
+            <table border="1">
+                <tr>
+                    <th>Event Name</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                </tr>
+                <tr>
+                    <td>Indie Music Event </td>
+                    <td>Jakarta</td>
+                    <td>5th November 2024</td>
+                </tr>
+                <tr>
+                    <td>Food Carnival</td>
+                    <td>Bandung</td>
+                    <td>10th November 2024</td>
+                </tr>
+                <tr>
+                    <td>Show Theater: Kisah Klasik Abadi </td>
+                    <td>Teater Kita Makassar</td>
+                    <td>5th November 2024</td>
+                </tr>
+                <tr>
+                    <td>Djakarta Warehouse Project 2024 </td>
+                    <td>Jakarta International Expo, Jakarta</td>
+                    <td>13-15 December 2024</td>
+                </tr>
+                <tr>
+                    <td>Indonesia Open </td>
+                    <td>Istora Senayan, Jakarta</td>
+                    <td>10-15 January 2025</td>
+                </tr>
+                <tr>
+                    <td>Juneteenth Film Festival </td>
+                    <td>Eureaka Theater, California</td>
+                    <td>6,13,20,27 June 2025</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Order Ticket Section -->
+        <section id="order">
+            <h2>Order Your Tickets</h2>
+            <form action="submit.html" method="post">
+                <label for="event">Event:</label><br>
+                <input type="text" id="event" name="event"><br><br>
+
+                <label for="quantity">Number of Tickets:</label><br>
+                <input type="number" id="quantity" name="quantity"><br><br>
+
+                <label for="name">Full Name:</label><br>
+                <input type="text" id="name" name="name"><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+
+        <!-- Event Schedule Section -->
+        <section id="schedule">
+            <h2>Event Schedule</h2>
+            <ul>
+                <li>20th October 2024 - Indie Music Event, Jakarta</li>
+                <li>10th November 2024 - Food Carnival, Bandung</li>
+                <li>5th November 2024 - Show Theater: Kisah Klasik Abadi, Teater Kita Makassar</li>
+                <li>13-15 December 2024 - Djakarta Warehouse Project 2024,Jakarta International Expo, Jakarta</li>
+                <li>10-15 January 2025 - Indonesia Open, Istora Senayan</li>
+                <li>6,13,20,27 June 2025 - Juneteenth Film Festival, Eureka Theater, California</li>
+
+            </ul>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" style="padding: 50px; background-color: #f9f9f9; text-align: center;">
+            <h2 style="font-size: 2.5em; margin-bottom: 30px; color: #333;">About Us</h2>
+            
+            <div style="margin-bottom: 30px;">
+                <div style="display: inline-block; width: 18%; margin: 10px; font-size: 1.2em; text-align: left;">Izulhak Algi Fahrizal (230209502009)</div>
+                <div style="display: inline-block; width: 18%; margin: 10px; font-size: 1.2em; text-align: left;">Irfan Jamal (230209502023)</div>
+                <div style="display: inline-block; width: 18%; margin: 10px; font-size: 1.2em; text-align: left;">Khaerul Amri Syam (230209502013)</div>
+                <div style="display: inline-block; width: 18%; margin: 10px; font-size: 1.2em; text-align: left;">Jalaluddin Basir (230209502014)</div>
+                <div style="display: inline-block; width: 18%; margin: 10px; font-size: 1.2em; text-align: left;">Khirina Khairur Rooziqina (230209501107)</div>
+            </div>
+
+            <img src="kelompokk6.jpeg" alt="Concert Event" style="width: 70%; max-width: 700px; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Event Ticket Booking by kelompok 6</p>
+        </footer>
+   
+</body>
+</html>
+
